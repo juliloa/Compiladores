@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Analizador de Código</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="card">
+    <form method="POST">
+      <textarea name="entrada" placeholder="Escribe...">{{ entrada }}</textarea>
+      <button type="submit">Ejecutar Análisis</button>
+    </form>
+
+    {% if tokens %}
+    <table>
+      <thead>
+        <tr>
+          <th>🔤 Tipo</th>
+          <th>📦 Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tipo, valor in tokens %}
+        <tr>
+          <td>{{ tipo }}</td>
+          <td>{{ valor }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  <script>
+    document.querySelector('textarea').addEventListener('keydown', function(e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.substring(0, start) + '\t' + this.value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 1;
+      }
+    });
+  </script>
+</body>
+
+</html>
