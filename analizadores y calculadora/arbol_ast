@@ -1,0 +1,11 @@
+digraph {
+	n0 [label=BinOp]
+	n1 [label="Constant
+2"]
+	n0 -> n1
+	n2 [label=Add]
+	n0 -> n2
+	n3 [label="Constant
+2"]
+	n0 -> n3
+}
